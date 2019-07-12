@@ -6,3 +6,5 @@ public class Main {
         System.out.println(bankAccount.toString());
     }
 }
+
+// банківський аккаунт
