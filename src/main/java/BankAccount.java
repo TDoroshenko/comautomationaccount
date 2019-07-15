@@ -1,6 +1,8 @@
+import java.math.BigDecimal;
+
 public class BankAccount {
     private long accountNumber;
-    private double balance;
+    private BigDecimal balance;
 
     public void setAccountNumber(long accountNumber) {
         this.accountNumber = accountNumber;
@@ -10,28 +12,32 @@ public class BankAccount {
         return accountNumber;
     }
 
-    public void setBalance(double balance){
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public double credit(double addSum) {
-        balance = balance + addSum;
+    public BigDecimal credit(double addSum) {
+        balance = balance.add(BigDecimal.valueOf(addSum));
         return balance;
     }
 
-    public double debit(double substractSum) {
-        if (substractSum > balance) System.out.println("Сумма снятия больше чем остаток на счету!");
-        balance = balance - substractSum;
+    public BigDecimal debit(double substractSum) {
+        if (balance.subtract(BigDecimal.valueOf(substractSum)).compareTo(BigDecimal.valueOf(0)) < 0) {
+            System.out.println("You don't have enough money for the operation.");
+        } else {
+            balance = balance.subtract(BigDecimal.valueOf(substractSum));
+        }
         return balance;
     }
 
-    BankAccount () {}
+    BankAccount() {
+    }
 
-    BankAccount (long accountNumber, double balance) {
+    BankAccount(long accountNumber, BigDecimal balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
     }
@@ -41,9 +47,6 @@ public class BankAccount {
                 this.accountNumber + ", баланс: " +
                 this.balance;
     }
-
-
-
 
 
 }
